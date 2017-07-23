@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'https://repo.eclipse.org/content/repositories/californium/'
+    }
+}
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "org.wsncoap.coapclient"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'about.html'
+        exclude 'edl-v10.html'
+        exclude 'epl-v10.html'
+        exclude 'notice.html'
+        exclude 'META-INF/ECLIPSE_.RSA'
+        exclude 'META-INF/ECLIPSE_.SF'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    testCompile 'junit:junit:4.12'
+
+    compile group: 'org.eclipse.californium', name: 'californium-core', version: '2.0.0-M3'
+    compile group: 'org.eclipse.californium', name: 'element-connector', version: '2.0.0-M3'
+}
